@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Car</title>
+        <link rel="stylesheet" href="./assets/css/base.css" />
+        <link rel="stylesheet" href="./assets/css/main.css" />
+    </head>
+    <body>
+        <div id="root">
+            <div class="control">
+                <div class="item up" name="up">
+                    
+                </div>
+                <div class="item down" name="down">
+
+                </div>
+                <div class="item left" name="left">
+
+                </div>
+                <div class="item right" name="right">
+
+                </div>
+            </div>
+        </div>
+
+        <script>
+            const url = "http://192.168.1.10"
+
+            const controlBtns = Array.from(document.querySelectorAll(".control .item"));
+            controlBtns.forEach((controlBtn) => {
+                let interval;
+                function move() {
+                    console.log(url + "/move/?direction=" + controlBtn.getAttribute("name"));
+                    fetch(url + "/move/?direction=" + controlBtn.getAttribute("name"),  {
+                    method: 'POST',
+                    body: controlBtn.getAttribute("name"),
+                    mode: 'no-cors',
+                })
+                    .then((respons) => respons)
+                    .then((data) => data)
+                    .catch(() => {
+                        console.log('error');
+                    });
+                }
+                
+                controlBtn.onmousedown = controlBtn.ontouchstart = (e) => {
+                    interval = setInterval(() => {
+                        move();
+                    }, 10)
+                };
+                controlBtn.onmouseup = controlBtn.ontouchend = (e) => {
+                    clearInterval(interval);
+                };
+                controlBtn.onclick = move;
+            })
+        </script>
+    </body>
+</html>

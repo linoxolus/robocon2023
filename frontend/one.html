@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang='en'>
+    <head>
+        <meta charset='UTF-8' />
+        <meta name='viewport' content='width=device-width, initial-scale=1.0' />
+        <title>Robot Controler</title>
+        <link
+            rel='stylesheet'
+            href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css'
+        />
+        <style>
+            * {
+                padding: 0;
+                margin: 0;
+                box-sizing: border-box;
+                transition: 0.25s;
+            }
+
+            #root {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                min-height: 100vh;
+            }
+
+            .main {
+                text-align: center;
+                font-size: 64px;
+            }
+
+            .icon {
+                color: #ff2c2c;
+            }
+
+            .icon.enabled {
+                color: #5bb450;
+            }
+        </style>
+    </head>
+    <body>
+        <div id='root'>
+            <div class='main'>
+                <div class='icon'>
+                    <i class='fa-solid fa-power-off'></i>
+                </div>
+            </div>
+        </div>
+
+        <script>
+            var btn = document.querySelector('.icon');
+            var url = 'http://192.168.1.10:80';
+            function toggle() {
+                btn.classList.toggle('enabled');
+                fetch(url, {
+                    method: 'POST',
+                    body: 'toggle',
+                    mode: 'no-cors',
+                })
+                    .then((respons) => respons)
+                    .then((data) => data)
+                    .catch(() => {
+                        console.log('error');
+                    });
+            }
+
+            btn.onclick = toggle;
+        </script>
+    </body>
+</html>

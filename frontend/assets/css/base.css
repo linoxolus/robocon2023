@@ -1,0 +1,21 @@
+:root {
+    --backgroud-color: #191A19;
+    --primary-color: #4E9F3D;
+    --text-color: #D8E9A8;
+}
+
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    transition: .25s;
+}
+
+#root {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background-color: var(--backgroud-color);
+    color: var(--text-color);
+}
