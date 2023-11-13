@@ -1,29 +1,33 @@
-const url = "http://192.168.1.10"
+const url = 'http://192.168.12';
 
-const controlBtns = Array.from(document.querySelectorAll(".control .item"));
+const controlBtns = Array.from(document.querySelectorAll('.control .item'));
+let intervals = {};
 controlBtns.forEach((controlBtn) => {
-    let interval;
     function move() {
-        console.log(url + "/move/?direction=" + controlBtn.getAttribute("name"));
-        fetch(url + "/move/?direction=" + controlBtn.getAttribute("name"),  {
-        method: 'POST',
-        body: controlBtn.getAttribute("name"),
-        mode: 'no-cors',
-    })
-        .then((respons) => respons)
-        .then((data) => data)
-        .catch(() => {
-            console.log('error');
-        });
+        console.log(
+            url + '/post/move/?direction=' + controlBtn.getAttribute('name')
+        );
+        fetch(url + '/post/move/?direction=' + controlBtn.getAttribute('name'), {
+            method: 'POST',
+            body: controlBtn.getAttribute('name'),
+            mode: 'no-cors',
+        })
+            .then((respons) => respons)
+            .then((data) => data)
+            .catch(() => {
+                console.log('error');
+            });
     }
-    
+
     controlBtn.onmousedown = controlBtn.ontouchstart = (e) => {
-        interval = setInterval(() => {
+        let index = controlBtn.getAttribute("name");
+        intervals.index = setInterval(() => {
             move();
-        }, 10)
+        }, 200);
     };
     controlBtn.onmouseup = controlBtn.ontouchend = (e) => {
-        clearInterval(interval);
+        let index = controlBtn.getAttribute("name");
+        clearInterval(intervals.index);
     };
     controlBtn.onclick = move;
-})
+});
