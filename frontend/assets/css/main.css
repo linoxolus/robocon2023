@@ -1,43 +1,67 @@
-.control {
-    --size: 360px;
-    position: relative;
-    width: var(--size);
-    height: var(--size);
+.main {
+    display: grid;
+    grid-template-columns: 1fr;
 }
 
-.control .item {
-    --size: 100px;
+.main-item {
+    --size: 256px;
     width: var(--size);
     height: var(--size);
-    background-color: var(--primary-color);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 16px;
     border-radius: 12px;
+    /* background-color: var(--primary-color); */
+    box-shadow: 0 0 6px #000;
+    text-decoration: none;
 }
 
-.control .item.up {
-    position: absolute;
-    top: 24px;
-    left: 50%;
-    transform: translateX(-50%);
+.main-item .main-item-link {
+    text-decoration: none;
 }
 
-.control .item.down {
-    position: absolute;
-    bottom: 24px;
-    left: 50%;
-    transform: translateX(-50%);
+.main-item-info {
+    margin-left: 12px;
+    font-weight: bold;
 }
 
-.control .item.left {
-    position: absolute;
-    left: 24px;
-    top: 50%;
-    transform: translateY(-50%);
+.main-item-head {
+    opacity: 0.5;
+    font-size: 12px;
+    line-height: 12px;
 }
 
-.control .item.right {
-    position: absolute;
-    position: absolute;
-    right: 24px;
-    top: 50%;
-    transform: translateY(-50%);
+.main-item-data {
+    font-size: 24px;
+    line-height: 24px;
+    margin-top: 6px;
+}
+
+.main-item.no-data .main-item-info {
+    text-align: center;
+    margin: 0;
+}
+
+.main-item.no-data .icon {
+    font-size: 64px;
+}
+
+.main-item.no-data .main-item-head {
+    margin-top: 12px;    
+    font-size: 24px;
+    opacity: 1;
+    user-select: none;
+}
+
+@media screen and (min-width: 767px) {
+    .main {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media screen and (min-width: 1023px) {
+    .main {
+        grid-template-columns: repeat(4, 1fr);
+    }
 }

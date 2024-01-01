@@ -1,7 +1,7 @@
 :root {
-    --backgroud-color: #191A19;
-    --primary-color: #4E9F3D;
-    --text-color: #D8E9A8;
+    --text-color: #fff;
+    --backgroud-color: #182c49;
+    --primary-color: #65B741;
 }
 
 * {
@@ -9,6 +9,11 @@
     margin: 0;
     box-sizing: border-box;
     transition: .25s;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+a {
+    color: var(--text-color);
 }
 
 #root {
@@ -18,4 +23,21 @@
     min-height: 100vh;
     background-color: var(--backgroud-color);
     color: var(--text-color);
+    position: relative;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+}
+
+.back-btn {
+    margin: 36px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    color: var(--text-color);
+}
+
+.icon {
+    font-size: 36px;
 }

@@ -3,27 +3,60 @@
     <head>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>Car</title>
+        <title>home</title>
+        <link
+            rel="stylesheet"
+            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+            integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA=="
+            crossorigin="anonymous"
+            referrerpolicy="no-referrer"
+        />
         <link rel="stylesheet" href="./assets/css/base.css" />
         <link rel="stylesheet" href="./assets/css/main.css" />
     </head>
     <body>
         <div id="root">
-            <div class="control">
-                <div class="item up" name="up">
-                    
-                </div>
-                <div class="item down" name="down">
-
-                </div>
-                <div class="item left" name="left">
-
-                </div>
-                <div class="item right" name="right">
-
-                </div>
+            <div class="main">
+                <a href="#" class="main-item">
+                    <i class="fa-solid icon fa-temperature-quarter"></i>
+                    <div class="main-item-info">
+                        <div class="main-item-head">TEMP</div>
+                        <div class="main-item-data">20.35°C</div>
+                    </div>
+                </a>
+                <a href="#" class="main-item">
+                    <i class="fa-solid icon fa-droplet"></i>
+                    <div class="main-item-info">
+                        <div class="main-item-head">Humidity</div>
+                        <div class="main-item-data">46%</div>
+                    </div>
+                </a>
+                <a href="#" class="main-item">
+                    <i class="fa-solid icon fa-location-dot"></i>
+                    <div class="main-item-info">
+                        <div class="main-item-head">Distance</div>
+                        <div class="main-item-data">3.43cm</div>
+                    </div>
+                </a>
+                <a href="/page/camera.html" class="main-item no-data">
+                    <div class="main-item-info">
+                        <i class="fa-solid icon fa-camera"></i>
+                        <div class="main-item-head">Camera</div>
+                    </div>
+                </a>
+                <a href="/page/control.html" class="main-item no-data">
+                    <div class="main-item-info">
+                        <i class="fa-solid icon fa-gamepad"></i>
+                        <div class="main-item-head">Control</div>
+                    </div>
+                </a>
             </div>
         </div>
-        <script src="./assets/js/main.js"l></script>
+
+        <script src="./assets/js/main.js" type="module"></script>
+        <script type="module">
+            import { default as camera } from '../assets/js/module/camera.js';
+            camera();
+        </script>
     </body>
 </html>

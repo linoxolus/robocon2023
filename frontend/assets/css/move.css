@@ -1,0 +1,43 @@
+.control-move {
+    --size: 360px;
+    position: relative;
+    width: var(--size);
+    height: var(--size);
+}
+
+.control-move .item {
+    --size: 100px;
+    width: var(--size);
+    height: var(--size);
+    background-color: var(--primary-color);
+    border-radius: 12px;
+}
+
+.control-move .item.up {
+    position: absolute;
+    top: 24px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.control-move .item.down {
+    position: absolute;
+    bottom: 24px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.control-move .item.left {
+    position: absolute;
+    left: 24px;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.control-move .item.right {
+    position: absolute;
+    position: absolute;
+    right: 24px;
+    top: 50%;
+    transform: translateY(-50%);
+}
