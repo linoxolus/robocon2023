@@ -17,45 +17,53 @@
     <body>
         <div id="root">
             <div class="main">
-                <a href="#" class="main-item">
+                <a href="#" class="main-item" id="temp">
                     <i class="fa-solid icon fa-temperature-quarter"></i>
                     <div class="main-item-info">
                         <div class="main-item-head">TEMP</div>
-                        <div class="main-item-data">20.35°C</div>
+                        <div class="main-item-data" data-postfix="°C">19.55°C</div>
                     </div>
                 </a>
-                <a href="#" class="main-item">
+                <a href="#" class="main-item" id="humi">
                     <i class="fa-solid icon fa-droplet"></i>
                     <div class="main-item-info">
                         <div class="main-item-head">Humidity</div>
-                        <div class="main-item-data">46%</div>
+                        <div class="main-item-data" data-postfix="%">26%</div>
                     </div>
                 </a>
-                <a href="#" class="main-item">
+                <a href="#" class="main-item" id="distance">
                     <i class="fa-solid icon fa-location-dot"></i>
                     <div class="main-item-info">
                         <div class="main-item-head">Distance</div>
-                        <div class="main-item-data">3.43cm</div>
+                        <div class="main-item-data" data-postfix="cm">173.809cm</div>
                     </div>
                 </a>
-                <a href="/page/camera.html" class="main-item no-data">
+                <a href="./page/camera.html" class="main-item no-data" id="camera">
                     <div class="main-item-info">
                         <i class="fa-solid icon fa-camera"></i>
                         <div class="main-item-head">Camera</div>
                     </div>
                 </a>
-                <a href="/page/control.html" class="main-item no-data">
+                <a href="./page/control.html" class="main-item no-data" id="control">
                     <div class="main-item-info">
                         <i class="fa-solid icon fa-gamepad"></i>
                         <div class="main-item-head">Control</div>
                     </div>
                 </a>
+                <a href="./page/arm.html" class="main-item no-data" id="arm">
+                    <div class="main-item-info">
+                        <i class="fa-solid icon fa-hand"></i>
+                        <div class="main-item-head">Arm</div>
+                    </div>
+                </a>
             </div>
         </div>
 
-        <script src="./assets/js/main.js" type="module"></script>
+        <script src="./assets/js/main.js"></script>
         <script type="module">
-            import { default as camera } from '../assets/js/module/camera.js';
+            import { default as camera } from './assets/js/module/camera.js';
+            import indexPage from './assets/js/module/index.js'
+            indexPage(apiUrl);
             camera();
         </script>
     </body>

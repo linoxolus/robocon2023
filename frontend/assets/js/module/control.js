@@ -8,6 +8,7 @@ function controlMoveFn(url) {
                     '/move?direction=' +
                     controlMoveBtn.getAttribute('name')
             );
+            // fetch()
              
         }
 
