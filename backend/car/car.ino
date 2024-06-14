@@ -6,15 +6,21 @@
 #include <ESPAsyncWebServer.h>
 #include <ESP32Servo.h>
 
-Servo servo;
-const int servoPin = 4;
+Servo servo1;
+Servo servo2;
+Servo servo3;
+Servo servo4;
+const int servoPin1 = 4;
+const int servoPin2 = 16;
+const int servoPin3 = 17;
+const int servoPin4 = 5;
 const int trigPin = 5;
 const int echoPin = 16;
 #define SOUND_SPEED 0.034
 float distance = 0;
 
-const char* ssid = "HOAN";
-const char* password = "13122008";
+const char* ssid = "Lan Duy";
+const char* password = "landuy1004";
 AsyncWebServer server(80);
 
 int in1 = 13;
@@ -24,24 +30,24 @@ int in4 = 27;
 
 void move(String direction) {
   if (direction == "down") {
+    digitalWrite(in1, LOW);
+    digitalWrite(in2, HIGH);
+    digitalWrite(in3, LOW);
+    digitalWrite(in4, HIGH);
+  } else if (direction == "up") {
     digitalWrite(in1, HIGH);
     digitalWrite(in2, LOW);
     digitalWrite(in3, HIGH);
     digitalWrite(in4, LOW);
-  } else if (direction == "up") {
-    digitalWrite(in1, LOW);
-    digitalWrite(in2, HIGH);
-    digitalWrite(in3, LOW);
-    digitalWrite(in4, HIGH);
   } else if (direction == "left") {
-    digitalWrite(in1, LOW);
+    digitalWrite(in1, HIGH);
     digitalWrite(in2, LOW);
     digitalWrite(in3, LOW);
-    digitalWrite(in4, HIGH);
+    digitalWrite(in4, LOW);
   } else if (direction == "right") {
     digitalWrite(in1, LOW);
-    digitalWrite(in2, HIGH);
-    digitalWrite(in3, LOW);
+    digitalWrite(in2, LOW);
+    digitalWrite(in3, HIGH);
     digitalWrite(in4, LOW);
   } else {
     digitalWrite(in1, LOW);
@@ -95,7 +101,7 @@ void setup() {
   }
   Serial.println(WiFi.localIP());
 
-  server.on("/post/move", HTTP_POST, [](AsyncWebServerRequest* request) {
+  server.on("/api/post/move", HTTP_POST, [](AsyncWebServerRequest* request) {
     if (request->hasParam("direction")) {
       String direction = request->getParam("direction")->value();
       Serial.println(direction);
@@ -108,7 +114,7 @@ void setup() {
     }
   });
 
-  server.on("/get/ultraSonic", HTTP_GET, [](AsyncWebServerRequest* request) {
+  server.on("/api/get/ultraSonic", HTTP_GET, [](AsyncWebServerRequest* request) {
     // Serial.println(srf05());
     AsyncWebServerResponse *response = request->beginResponse(200, "text/plain", String(distance));
     response->addHeader("Access-Control-Allow-Origin", "*");
