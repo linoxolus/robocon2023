@@ -10,10 +10,10 @@ Servo servo1;
 Servo servo2;
 Servo servo3;
 Servo servo4;
-const int servoPin1 = 4;
-const int servoPin2 = 16;
-const int servoPin3 = 17;
-const int servoPin4 = 5;
+const int servoPin1 = 25;
+const int servoPin2 = 33;
+const int servoPin3 = 32;
+const int servoPin4 = 35;
 const int trigPin = 5;
 const int echoPin = 16;
 #define SOUND_SPEED 0.034
@@ -67,18 +67,15 @@ float srf05() {
   return duration * SOUND_SPEED / 2;
 }
 
-void servoHandler() {
-  int delayTime = 1;
-  for (int pos = 0; pos <= 180; pos++) {
-    distance = srf05();
-    servo.write(pos);
-    delay(delayTime);
-  }
-
-  for (int pos = 180; pos >= 0; pos--) {
-    distance = srf05();
-    servo.write(pos);
-    delay(delayTime);
+void servoHandler(String servo, int value) {
+  if(servo == "1") {
+    servo1.write(value);
+  } else if(servo == "2") {
+    servo2.write(value);
+  } else if(servo == "3") {
+    servo3.write(value);
+  } else if(servo == "4") {
+    servo4.write(value);
   }
 }
 
@@ -89,7 +86,10 @@ void setup() {
   pinMode(in3, OUTPUT);
   pinMode(in4, OUTPUT);
 
-  servo.attach(servoPin);
+  servo1.attach(servoPin1);
+  servo2.attach(servoPin2);
+  servo3.attach(servoPin3);
+  servo4.attach(servoPin4);
   pinMode(trigPin, OUTPUT);
   pinMode(echoPin, INPUT);
 
@@ -114,6 +114,21 @@ void setup() {
     }
   });
 
+  server.on("/api/post/arm", HTTP_POST, [](AsyncWebServerRequest* request) {
+    if (request->hasParam("servo") && request->hasParam("value")) {
+      String servo = request->getParam("servo")->value();
+      String value = request->getParam("value")->value();
+      Serial.print("servo: ");
+      Serial.print(servo);
+      Serial.print("; value: ");
+      Serial.println(value);
+      servoHandler(servo, value.toInt());
+      request->send(200, "text/plain", "Success");
+    } else {
+      request->send(400, "text/plain", "Fail");
+    }
+  });
+
   server.on("/api/get/ultraSonic", HTTP_GET, [](AsyncWebServerRequest* request) {
     // Serial.println(srf05());
     AsyncWebServerResponse *response = request->beginResponse(200, "text/plain", String(distance));
@@ -126,5 +141,4 @@ void setup() {
 
 void loop() {
   // put your main code here, to run repeatedly:
-  servoHandler();
 }

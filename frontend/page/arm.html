@@ -18,30 +18,30 @@
             <div class="control-arm">
                 <div class="item" data-id="1">
                     <h1>Servo 1</h1>
-                    <input type="range" name="1" data-id="1">
+                    <input type="range" max="180" step="1" name="1" data-id="1">
                 </div>
                 <div class="item" data-id="2">
                     <h1>Servo 2</h1>
-                    <input type="range" name="2" data-id="2">
+                    <input type="range" max="180" step="1" name="2" data-id="2">
                 </div>
                 <div class="item" data-id="3">
                     <h1>Servo 3</h1>
-                    <input type="range" name="3" data-id="3">
+                    <input type="range" max="180" step="1" name="3" data-id="3">
                 </div>
                 <div class="item" data-id="4">
                     <h1>Servo 4</h1>
-                    <input type="range" name="4" data-id="4">
+                    <input type="range" max="180" step="1" name="4" data-id="4">
                 </div>
                 <div class="item" data-id="5">
                     <h1>Servo 5</h1>
-                    <input type="range" name="5" data-id="5">
+                    <input type="range" max="180" step="1" name="5" data-id="5">
                 </div>
             </div>
         </div>
         <script src="../assets/js/main.js"></script>
         <script type="module">
             import { default as arm } from '../assets/js/module/arm.js';
-            arm(mainUrl);
+            arm(apiUrl);
         </script>
     </body>
 </html>
