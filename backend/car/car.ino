@@ -1,3 +1,6 @@
+#include <DHT.h>
+#include <DHT_U.h>
+
 #include <WiFi.h>
 #include <AsyncTCP.h>
 
@@ -6,21 +9,21 @@
 #include <ESPAsyncWebServer.h>
 #include <ESP32Servo.h>
 
-Servo servo1;
-Servo servo2;
-Servo servo3;
-Servo servo4;
-const int servoPin1 = 25;
-const int servoPin2 = 33;
-const int servoPin3 = 32;
-const int servoPin4 = 35;
+#define DHTPIN 17
+#define DHTTYPE DHT11
+
+DHT dht(DHTPIN, DHTTYPE);
+Servo servos[4];
+const int servoPins[4] = {25, 33, 32, 35};
 const int trigPin = 5;
 const int echoPin = 16;
 #define SOUND_SPEED 0.034
 float distance = 0;
+float temp = 0;
+float humi = 0;
 
-const char* ssid = "Lan Duy";
-const char* password = "landuy1004";
+const char* ssid = "tailoc";
+const char* password = "malochtailoc";
 AsyncWebServer server(80);
 
 int in1 = 13;
@@ -67,15 +70,13 @@ float srf05() {
   return duration * SOUND_SPEED / 2;
 }
 
-void servoHandler(String servo, int value) {
-  if(servo == "1") {
-    servo1.write(value);
-  } else if(servo == "2") {
-    servo2.write(value);
-  } else if(servo == "3") {
-    servo3.write(value);
-  } else if(servo == "4") {
-    servo4.write(value);
+void servoHandler(int servoIndex, int value) {
+  servoIndex = servoIndex - 1;
+  if (servoIndex >= 0 && servoIndex < 4) {
+    servos[servoIndex].attach(servoPins[servoIndex]);
+    servos[servoIndex].write(value);
+    delay(2000);
+    servos[servoIndex].detach();
   }
 }
 
@@ -85,13 +86,13 @@ void setup() {
   pinMode(in2, OUTPUT);
   pinMode(in3, OUTPUT);
   pinMode(in4, OUTPUT);
-
-  servo1.attach(servoPin1);
-  servo2.attach(servoPin2);
-  servo3.attach(servoPin3);
-  servo4.attach(servoPin4);
   pinMode(trigPin, OUTPUT);
   pinMode(echoPin, INPUT);
+
+  servos[0].attach(servoPins[0]);
+  servos[1].attach(servoPins[1]);
+  servos[2].attach(servoPins[2]);
+  servos[3].attach(servoPins[3]);
 
   Serial.begin(115200);
   WiFi.begin(ssid, password);
@@ -122,7 +123,7 @@ void setup() {
       Serial.print(servo);
       Serial.print("; value: ");
       Serial.println(value);
-      servoHandler(servo, value.toInt());
+      servoHandler(servo.toInt(), value.toInt());
       request->send(200, "text/plain", "Success");
     } else {
       request->send(400, "text/plain", "Fail");
@@ -131,14 +132,27 @@ void setup() {
 
   server.on("/api/get/ultraSonic", HTTP_GET, [](AsyncWebServerRequest* request) {
     // Serial.println(srf05());
-    AsyncWebServerResponse *response = request->beginResponse(200, "text/plain", String(distance));
+    AsyncWebServerResponse* response = request->beginResponse(200, "text/plain", String(distance));
+    response->addHeader("Access-Control-Allow-Origin", "*");
+    request->send(response);
+  });
+
+  server.on("/api/get/temp", HTTP_GET, [](AsyncWebServerRequest* request) {
+    temp = dht.readTemperature();
+    AsyncWebServerResponse* response = request->beginResponse(200, "text/plain", String(temp));
+    response->addHeader("Access-Control-Allow-Origin", "*");
+    request->send(response);
+  });
+
+  server.on("/api/get/humi", HTTP_GET, [](AsyncWebServerRequest* request) {
+    humi = dht.readHumidity();
+    AsyncWebServerResponse* response = request->beginResponse(200, "text/plain", String(humi));
     response->addHeader("Access-Control-Allow-Origin", "*");
     request->send(response);
   });
 
   server.begin();
 }
-
 void loop() {
   // put your main code here, to run repeatedly:
 }

@@ -4,19 +4,27 @@ function indexPage(apiUrl) {
         (component) => !Array.from(component.classList).includes('no-data')
     );
     setInterval(() => {
-        for (var i = 0; i < components.length; i++) {
+        for (let i = 0; i < components.length; i++) {
             var url = apiUrl + '/get/' + components[i].id;
-            var postfix =
+            let postfix =
                 components[i].querySelector('.main-item-data').dataset.postfix;
             
-            fetch(url)
-            .then(data => data.json())
+            fetch(url, {
+                headers: {
+                    // Accept: 'application/json',
+                    // 'Content-Type': 'application/json',
+                    // 'Access-Control-Request-Headers': '*',
+                },
+                method: 'GET',
+            })
+            .then(data => data.text())
             .then(data => {
                 components[i].querySelector('.main-item-data').innerText =
                     data + postfix;
             })
             
         }
+        // console.log('tes');
     }, 1000);
 }
 

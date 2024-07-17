@@ -1,3 +1,17 @@
+#root {
+    background-image: url(http://192.168.96.231:81/stream);
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: center;
+    /* transform: rotate(-90deg); */
+    /* position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0; */
+
+}
+
 .control-move {
     --size: 360px;
     position: relative;

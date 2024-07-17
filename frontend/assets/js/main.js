@@ -1,6 +1,6 @@
-const mainUrl = 'http://192.168.1.11';
-const camUrl = 'http://192.168.1.11/capture';
-const apiUrl = 'http://192.168.1.11/api';
+const mainUrl = 'http://192.168.96.145';
+const camUrl = 'http://192.168.96.231:81/stream';
+const apiUrl = 'http://192.168.96.145/api';
 const backBtn = document.querySelector('.back-btn');
 window.addEventListener('beforeunload', function (event) {
     localStorage.preUrl = window.location.href;
