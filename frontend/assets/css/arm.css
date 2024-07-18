@@ -1,3 +1,22 @@
 .control-arm {
        /* scale: 1.5; */
 }
+
+.spe-servo {
+       text-align: center;
+}
+
+.spe-servo-wrap {
+       display: flex;
+       justify-content: space-around;
+       align-items: center;
+}
+
+.spe-servo-btn {
+       padding: 12px;
+       width: 48px;
+       height: 48px;
+       border: none;
+       outline: none;
+       border-radius: 12px;
+}

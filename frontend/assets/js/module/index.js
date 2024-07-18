@@ -11,9 +11,6 @@ function indexPage(apiUrl) {
             
             fetch(url, {
                 headers: {
-                    // Accept: 'application/json',
-                    // 'Content-Type': 'application/json',
-                    // 'Access-Control-Request-Headers': '*',
                 },
                 method: 'GET',
             })

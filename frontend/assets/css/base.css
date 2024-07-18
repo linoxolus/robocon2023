@@ -36,6 +36,7 @@ a {
     top: 0;
     left: 0;
     color: var(--text-color);
+    z-index: 1955;
 }
 
 .icon {
